@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MONAT=`date +"%Y-%m"`
+DATUM=`date +"%Y-%m-%d"`
+
+
+BACKUP=/host/mariadb/backup/$MONAT/
+
+mkdir -p $BACKUP
+cd $BACKUP
+
+/usr/bin/mysqldump -u MARIADB_USER -pMARIADB_PASS --all-databases | /bin/gzip -9 > all-databases-$DATUM.sql.gz
+

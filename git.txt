@@ -1,0 +1,20 @@
+#git update
+git add --all .
+git status
+git commit -m "Kommentar"
+git push origin master
+
+#git tag
+git tag -a 0.1.0 a7fd16b -m "Kommentar"
+git push --tags origin master
+
+
+#git init
+echo "# mariadb" >> README.md
+git init
+git add README.md
+git config user.name www.eigener-server.ch
+git commit -m "first commit"
+git remote add origin https://github.com/eigener-server/mariadb.git
+git push -u origin master
+

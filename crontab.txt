@@ -1,0 +1,6 @@
+#Minute Stunde  Tag_des_Monats  Monat   Wochentag
+#  */5    *         1-7          12        1-5
+
+# SQL Backup täglich um 02:00 Uhr
+0 2 * * * /usr/local/bin/mysql_backup >> /host/mariadb/log/mysql-backup.log
+
