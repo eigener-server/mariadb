@@ -1,4 +1,9 @@
-FROM eigenerserver/ubuntu:0.2.0
+FROM eigenerserver/ubuntu:1.0
+
+LABEL description="Hedgehog Cloud by www.eigener-server.ch https://www.eigener-server.ch/en/igel-cloud \
+                   is licensed under a Creative Commons Attribution 4.0 International Lizenz \
+                   http://creativecommons.org/licenses/by/4.0/ \
+                   To remove the links visit https://www.eigener-server.ch/en/igel-cloud"
 
 ENV MARIADB_USER=eigenerserver
 ENV MARIADB_PASS=eigenerserver

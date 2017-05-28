@@ -1,1 +1,1 @@
-docker build -t dev_mariadb .
+docker build -t mariadb .

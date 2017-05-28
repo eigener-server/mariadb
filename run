@@ -1,1 +1,1 @@
-docker run -ti --rm dev_mariadb /bin/bash
+docker run -ti --rm mariadb /bin/bash
