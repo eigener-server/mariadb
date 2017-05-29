@@ -46,4 +46,3 @@ if [ ! -f /host/mariadb/firstrun ]; then
 fi
 
 exec "$@"
-
