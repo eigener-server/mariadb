@@ -41,6 +41,10 @@ if [ ! -f /host/mariadb/firstrun ]; then
     mysql -u root -p${MARIADB_ROOT_PASS} -e "FLUSH PRIVILEGES;"
     service mysql stop
 
+    if [ "$MARIADB_LOG_BIN_TRUST" = "1" ]
+        mysql -u root -p${MARIADB_ROOT_PASS} -e "SET GLOBAL log_bin_trust_function_creators = 1;"
+    fi
+
     # Don't run this again
     touch /host/mariadb/firstrun
 fi
