@@ -5,6 +5,7 @@ LABEL description="Hedgehog Cloud by www.eigener-server.ch https://www.eigener-s
                    http://creativecommons.org/licenses/by/4.0/ \
                    To remove the links visit https://www.eigener-server.ch/en/igel-cloud"
 
+ENV MARIADB_LOG_BIN_TRUST=0
 ENV MARIADB_USER=eigenerserver
 ENV MARIADB_PASS=eigenerserver
 ENV MARIADB_ROOT_PASS=eigenerserver
