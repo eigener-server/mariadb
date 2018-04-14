@@ -39,11 +39,12 @@ if [ ! -f /host/mariadb/firstrun ]; then
     mysql -u root -p${MARIADB_ROOT_PASS} -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASS}';"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "FLUSH PRIVILEGES;"
-    service mysql stop
 
-    if [ "$MARIADB_LOG_BIN_TRUST" = "1" ]; then
+    if [ "$MARIADB_LOG_BIN_TRUST" -eq 1 ]; then
         mysql -u root -p${MARIADB_ROOT_PASS} -e "SET GLOBAL log_bin_trust_function_creators = 1;"
     fi
+
+    service mysql stop
 
     # Don't run this again
     touch /host/mariadb/firstrun
