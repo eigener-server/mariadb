@@ -19,6 +19,13 @@ if [ ! -f /firstrun ]; then
     sed -i -e "s/MARIADB_USER/${MARIADB_USER}/" /usr/local/bin/mysql_backup
     sed -i -e "s/MARIADB_PASS/${MARIADB_PASS}/" /usr/local/bin/mysql_backup
 
+
+    if [ "$MARIADB_LOG_BIN_TRUST" -eq 1 ]; then
+        echo "Start set log_bin_trust_function_creators"
+        sed -i -e '/^\[mysqld\]/a log_bin_trust_function_creators = 1' /etc/mysql/my.cnf
+        echo "End set log_bin_trust_function_creators"
+    fi
+    
     # Don't run this again
     touch /firstrun
 fi
@@ -41,13 +48,6 @@ if [ ! -f /host/mariadb/firstrun ]; then
     mysql -u root -p${MARIADB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "FLUSH PRIVILEGES;"
     echo "End Create User and DB"
-
-    if [ "$MARIADB_LOG_BIN_TRUST" -eq 1 ]; then
-        echo "Start set log_bin_trust_function_creators"
-        mysql -u root -p${MARIADB_ROOT_PASS} -e "SET GLOBAL log_bin_trust_function_creators = 1;"
-        echo "End set log_bin_trust_function_creators"
-    fi
-
     service mysql stop
 
     # Don't run this again
