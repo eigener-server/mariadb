@@ -33,15 +33,19 @@ if [ ! -f /host/mariadb/firstrun ]; then
 
     # Create tables
     service mysql start
+    echo "Start Create User and DB"
     mysql -u root -e "use mysql;update user SET PASSWORD=PASSWORD('${MARIADB_ROOT_PASS}') WHERE USER='root';flush privileges;"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON *.* TO  'debian-sys-maint'@'localhost' identified by '${MARIADB_ROOT_PASS}' WITH GRANT OPTION;"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "CREATE DATABASE IF NOT EXISTS ${MARIADB_DATABASE};"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASS}';"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;"
     mysql -u root -p${MARIADB_ROOT_PASS} -e "FLUSH PRIVILEGES;"
+    echo "End Create User and DB"
 
     if [ "$MARIADB_LOG_BIN_TRUST" -eq 1 ]; then
+        echo "Start set log_bin_trust_function_creators"
         mysql -u root -p${MARIADB_ROOT_PASS} -e "SET GLOBAL log_bin_trust_function_creators = 1;"
+        echo "End set log_bin_trust_function_creators"
     fi
 
     service mysql stop
